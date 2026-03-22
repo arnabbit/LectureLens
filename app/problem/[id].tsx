@@ -100,9 +100,12 @@ export default function ProblemDetailScreen() {
 
         {/* Approaches */}
         <Text style={styles.approachesTitle}>Approaches</Text>
-        {problem.approaches.map((approach, index) => {
+        {[...problem.approaches]
+          .sort((a, b) => (a.optimisationScore ?? 0) - (b.optimisationScore ?? 0))
+          .map((approach, index, sorted) => {
           const isExpanded = expandedApproach === index;
           const displayText = rephrasedTexts[index] ?? approach.explanation;
+          const isBest = index === sorted.length - 1;
           return (
             <Pressable
               key={index}
@@ -116,7 +119,7 @@ export default function ProblemDetailScreen() {
                 <View style={{ flex: 1 }}>
                   <View style={styles.approachNameRow}>
                     <Text style={styles.approachName}>{approach.name}</Text>
-                    {index === 0 && (
+                    {isBest && (
                       <MaterialCommunityIcons name="star" size={14} color={M3.secondary} />
                     )}
                   </View>

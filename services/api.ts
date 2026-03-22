@@ -18,6 +18,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 export interface Approach {
   name: string;
   complexity: { time: string; space: string };
+  optimisationScore?: number;
   explanation: string;
 }
 
