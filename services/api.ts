@@ -29,6 +29,7 @@ export interface Problem {
   lectureId: string;
   sectionName: string;
   lectureName: string;
+  problemName?: string;
   problemStatement: string;
   approaches: Approach[];
   keyInsights: string[];

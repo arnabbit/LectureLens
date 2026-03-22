@@ -110,9 +110,9 @@ export default function SectionListScreen() {
                       onPress={() => router.push({ pathname: '/problem/[id]', params: { id: problem._id } })}
                     >
                       <Text style={styles.problemName} numberOfLines={2}>
-                        {problem.problemStatement.length > 80
+                        {problem.problemName || (problem.problemStatement.length > 80
                           ? problem.problemStatement.substring(0, 80) + '...'
-                          : problem.problemStatement}
+                          : problem.problemStatement)}
                       </Text>
                       <MaterialCommunityIcons name="chevron-right" size={20} color={M3.outlineVariant} />
                     </Pressable>
