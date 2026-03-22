@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Curator - Quiz Mode</title>
+<!-- Google Fonts: Manrope (Headlines) & Inter (Body) -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-background": "#191c1d",
+              "surface-container-high": "#e7e8e9",
+              "on-primary-container": "#93bcfc",
+              "on-error-container": "#93000a",
+              "tertiary": "#522900",
+              "background": "#f8f9fa",
+              "secondary-container": "#93efee",
+              "tertiary-container": "#733c00",
+              "on-primary-fixed": "#001c3b",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "on-error": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary-container": "#f7a967",
+              "surface": "#f8f9fa",
+              "surface-container": "#edeeef",
+              "on-secondary-container": "#006e6e",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-highest": "#e1e3e4",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "surface-variant": "#e1e3e4",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "primary-fixed-dim": "#a6c8ff",
+              "on-surface-variant": "#424750",
+              "on-surface": "#191c1d",
+              "primary-container": "#1a4b84",
+              "on-secondary-fixed": "#002020",
+              "tertiary-fixed": "#ffdcc3",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#d5e3ff",
+              "secondary": "#006a6a",
+              "primary": "#003466",
+              "outline": "#737781",
+              "inverse-primary": "#a6c8ff",
+              "surface-tint": "#335f99",
+              "secondary-fixed-dim": "#79d5d5",
+              "on-primary-fixed-variant": "#144780",
+              "secondary-fixed": "#96f2f1",
+              "on-tertiary-fixed": "#2f1500",
+              "surface-bright": "#f8f9fa",
+              "outline-variant": "#c3c6d1",
+              "inverse-on-surface": "#f0f1f2",
+              "on-secondary-fixed-variant": "#004f50"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body antialiased hide-scrollbar">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 h-16 bg-surface/80 backdrop-blur-md z-50 shadow-sm shadow-primary/5">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-primary">Quiz Mode</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-on-surface-variant font-label text-xs font-medium uppercase tracking-widest">Problem 14/50</span>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 pb-32 px-6 max-w-3xl mx-auto space-y-8">
+<!-- Problem Statement Section -->
+<section class="space-y-4">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label text-xs font-bold uppercase tracking-wider">
+                Medium • Linked List
+            </div>
+<h2 class="font-headline font-extrabold text-3xl tracking-tight text-on-surface">Detect Cycle in a Linked List</h2>
+<div class="p-6 bg-surface-container-low rounded-xl border border-outline-variant/15">
+<p class="text-on-surface leading-relaxed">
+                    Given <code class="bg-inverse-surface/10 px-1.5 py-0.5 rounded text-primary font-mono text-sm">head</code>, the head of a linked list, determine if the linked list has a cycle in it. 
+                    <br/><br/>
+                    There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, <code class="bg-inverse-surface/10 px-1.5 py-0.5 rounded text-primary font-mono text-sm">pos</code> is used to denote the index of the node that tail's next pointer is connected to.
+                </p>
+</div>
+</section>
+<!-- Quiz Input Area -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline font-bold text-xl text-on-surface">Your Approach</h3>
+<span class="text-on-surface-variant text-sm font-medium">Drafting...</span>
+</div>
+<div class="relative group">
+<textarea class="w-full min-h-[240px] p-6 bg-surface-container-highest rounded-xl border-none focus:ring-2 focus:ring-primary/30 font-mono text-sm text-on-surface leading-loose placeholder:text-outline/60 transition-all resize-none" placeholder="Describe your algorithm or type the code implementation here...">To solve this, I'd use the Floyd's Tortoise and Hare algorithm. 
+
+1. Initialize two pointers, slow and fast, both starting at the head.
+2. Move slow one step at a time and fast two steps at a time.
+3. If fast and slow meet at the same node, a cycle exists.
+4. If fast reaches the end (null), no cycle exists.
+
+Complexity: O(n) time and O(1) space.</textarea>
+</div>
+<!-- Submit Button -->
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold rounded-xl shadow-lg shadow-primary/10 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span>Submit Answer</span>
+<span class="material-symbols-outlined text-lg" data-icon="send">send</span>
+</button>
+</section>
+<!-- Result View (Initially hidden logic simulated by stateful layout) -->
+<!-- In a real app, this would replace the input or appear below after submit -->
+<section class="space-y-6 pt-8 border-t border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full font-headline font-bold">
+<span class="material-symbols-outlined text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Correct</span>
+</div>
+<div class="h-px flex-grow bg-outline-variant/30"></div>
+<div class="text-on-surface-variant text-sm font-medium">LLM Assessment</div>
+</div>
+<!-- LLM Feedback Card -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/10 space-y-4">
+<p class="text-on-surface leading-relaxed">
+<strong class="text-secondary">Excellent analysis!</strong> You correctly identified the <span class="font-bold">Floyd's Tortoise and Hare</span> algorithm, which is the optimal approach for this problem. Your space complexity of <code class="font-mono text-xs bg-surface-container p-1 rounded">O(1)</code> is spot on.
+                </p>
+<div class="flex items-center gap-2 p-3 bg-secondary/5 rounded-lg border-l-4 border-secondary">
+<span class="material-symbols-outlined text-secondary" data-icon="lightbulb">lightbulb</span>
+<span class="text-xs text-on-surface-variant italic">Pro Tip: Mentioning that fast starts at head.next and slow at head can sometimes simplify the loop condition.</span>
+</div>
+</div>
+<!-- Reveal Stored Explanation Section -->
+<div class="space-y-3">
+<h4 class="font-headline font-bold text-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+                    Standard Explanation
+                </h4>
+<div class="bg-inverse-surface text-on-surface-variant p-6 rounded-xl rounded-tr-[2rem] font-mono text-sm leading-relaxed relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
+<span class="text-on-tertiary-container block mb-2">// Time: O(N), Space: O(1)</span>
+<span class="text-secondary-fixed">public boolean</span> hasCycle(ListNode head) {<br/>
+                      <span class="text-secondary-fixed">if</span> (head == <span class="text-tertiary-fixed-dim">null</span>) <span class="text-secondary-fixed">return false</span>;<br/>
+                      ListNode slow = head;<br/>
+                      ListNode fast = head.next;<br/>
+                      <span class="text-secondary-fixed">while</span> (slow != fast) {<br/>
+                        <span class="text-secondary-fixed">if</span> (fast == <span class="text-tertiary-fixed-dim">null</span> || fast.next == <span class="text-tertiary-fixed-dim">null</span>) <span class="text-secondary-fixed">return false</span>;<br/>
+                        slow = slow.next;<br/>
+                        fast = fast.next.next;<br/>
+                      }<br/>
+                      <span class="text-secondary-fixed">return true</span>;<br/>
+                    }
+                </div>
+</div>
+<!-- Next Action -->
+<button class="w-full py-4 bg-surface-container-highest text-primary font-headline font-bold rounded-xl hover:bg-primary-fixed transition-colors active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
+<span>Next Problem</span>
+<span class="material-symbols-outlined" data-icon="keyboard_double_arrow_right">keyboard_double_arrow_right</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] md:hidden">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-surface-container-highest transition-colors px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Browse</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-teal-100/50 text-teal-800 rounded-2xl px-5 py-2 active:duration-150 scale-95" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="quiz" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Quiz</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-surface-container-highest transition-colors px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="analytics">analytics</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Status</span>
+</a>
+</nav>
+<!-- Desktop Navigation Side Anchors (Implicit from TopAppBar trailing icons or layout) -->
+<!-- For consistency with shell layout rules -->
+</body></html>

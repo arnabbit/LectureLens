@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Curator - Processing Status</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#191c1d",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-container": "#93bcfc",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#522900",
+                        "background": "#f8f9fa",
+                        "secondary-container": "#93efee",
+                        "tertiary-container": "#733c00",
+                        "on-primary-fixed": "#001c3b",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#f7a967",
+                        "surface": "#f8f9fa",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#006e6e",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-container-highest": "#e1e3e4",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "primary-fixed-dim": "#a6c8ff",
+                        "on-surface-variant": "#424750",
+                        "on-surface": "#191c1d",
+                        "primary-container": "#1a4b84",
+                        "on-secondary-fixed": "#002020",
+                        "tertiary-fixed": "#ffdcc3",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d5e3ff",
+                        "secondary": "#006a6a",
+                        "primary": "#003466",
+                        "outline": "#737781",
+                        "inverse-primary": "#a6c8ff",
+                        "surface-tint": "#335f99",
+                        "secondary-fixed-dim": "#79d5d5",
+                        "on-primary-fixed-variant": "#144780",
+                        "secondary-fixed": "#96f2f1",
+                        "on-tertiary-fixed": "#2f1500",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#c3c6d1",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#004f50"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .asymmetric-clip {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 h-16 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 shadow-sm shadow-blue-900/5">
+<div class="flex items-center gap-4">
+<button class="text-blue-900 hover:opacity-80 transition-opacity scale-95 active:duration-100">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-blue-900 font-manrope font-bold text-lg tracking-tight">Processing Status</h1>
+</div>
+<button class="text-blue-900 hover:opacity-80 transition-opacity scale-95 active:duration-100">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</header>
+<main class="flex-grow pt-24 pb-32 px-6 max-w-2xl mx-auto w-full">
+<!-- Hero Progress Section -->
+<section class="mb-10">
+<div class="flex items-end justify-between mb-4">
+<div>
+<span class="font-label text-label-md text-on-surface-variant uppercase tracking-widest font-semibold">Current Progress</span>
+<h2 class="font-headline text-3xl font-extrabold text-primary tracking-tighter">Advanced Quantum Mechanics</h2>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl font-bold text-primary">12<span class="text-outline-variant text-2xl font-light">/15</span></span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="relative h-4 w-full bg-surface-container-high rounded-full overflow-hidden mb-2">
+<div class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-primary-container transition-all duration-700 w-[80%]"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-medium text-sm">
+<span>80% Compiled</span>
+<span class="text-secondary font-bold">Processing...</span>
+</div>
+</section>
+<!-- Bento Grid Status Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<!-- Successful Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-secondary shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-headline font-bold text-on-surface">Verified Lectures</span>
+</div>
+<p class="text-2xl font-extrabold text-primary">09</p>
+<p class="text-sm text-on-surface-variant">Ready for study session</p>
+</div>
+<!-- Failed Card -->
+<div class="bg-error-container/20 p-6 rounded-xl border-l-4 border-error shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-headline font-bold text-on-error-container">Critical Errors</span>
+</div>
+<p class="text-2xl font-extrabold text-error">03</p>
+<p class="text-sm text-on-error-container">Requires manual retry</p>
+</div>
+</div>
+<!-- Done with Errors / Failed List Section -->
+<div class="bg-surface-container-low rounded-2xl overflow-hidden p-1">
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Lecture Pipeline</h3>
+<p class="text-sm text-on-surface-variant italic">Status: Done with Errors</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-all scale-95 active:scale-90 flex items-center gap-2">
+                        View Failed
+                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+<!-- Failed List Content -->
+<div class="space-y-4">
+<!-- Failed Item 1 -->
+<div class="flex gap-4 p-4 bg-surface-container rounded-xl">
+<div class="bg-error-container text-on-error-container h-10 w-10 flex items-center justify-center rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface">Lecture 04: Wave Functions</h4>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-error border border-error px-2 py-0.5 rounded">Failed</span>
+</div>
+<p class="text-sm text-error mt-1 font-medium">failReason: Could not extract transcript - Audio codec unsupported.</p>
+</div>
+</div>
+<!-- Failed Item 2 -->
+<div class="flex gap-4 p-4 bg-surface-container rounded-xl">
+<div class="bg-error-container text-on-error-container h-10 w-10 flex items-center justify-center rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-on-surface">Lecture 07: Uncertainty Principle</h4>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-error border border-error px-2 py-0.5 rounded">Failed</span>
+</div>
+<p class="text-sm text-error mt-1 font-medium">failReason: OCR timeout - Image quality too low for parsing formulas.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="mt-12 flex flex-col items-center">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-primary/20 flex items-center justify-center gap-3 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined">refresh</span>
+                Retry Failed Lectures
+            </button>
+<p class="mt-4 text-sm text-on-surface-variant text-center px-8">
+                The curator will re-attempt processing using secondary parsing engines.
+            </p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors scale-90 active:duration-150" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Browse</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors scale-90 active:duration-150" href="#">
+<span class="material-symbols-outlined mb-1">quiz</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Quiz</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-teal-100/50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-200 rounded-2xl px-5 py-2 hover:bg-surface-container-highest transition-colors scale-90 active:duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Status</span>
+</a>
+</nav>
+</body></html>

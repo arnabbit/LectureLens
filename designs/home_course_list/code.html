@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Curator - Course List</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-background": "#191c1d",
+              "surface-container-high": "#e7e8e9",
+              "on-primary-container": "#93bcfc",
+              "on-error-container": "#93000a",
+              "tertiary": "#522900",
+              "background": "#f8f9fa",
+              "secondary-container": "#93efee",
+              "tertiary-container": "#733c00",
+              "on-primary-fixed": "#001c3b",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "on-error": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary-container": "#f7a967",
+              "surface": "#f8f9fa",
+              "surface-container": "#edeeef",
+              "on-secondary-container": "#006e6e",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-highest": "#e1e3e4",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "surface-variant": "#e1e3e4",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "primary-fixed-dim": "#a6c8ff",
+              "on-surface-variant": "#424750",
+              "on-surface": "#191c1d",
+              "primary-container": "#1a4b84",
+              "on-secondary-fixed": "#002020",
+              "tertiary-fixed": "#ffdcc3",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#d5e3ff",
+              "secondary": "#006a6a",
+              "primary": "#003466",
+              "outline": "#737781",
+              "inverse-primary": "#a6c8ff",
+              "surface-tint": "#335f99",
+              "secondary-fixed-dim": "#79d5d5",
+              "on-primary-fixed-variant": "#144780",
+              "secondary-fixed": "#96f2f1",
+              "on-tertiary-fixed": "#2f1500",
+              "surface-bright": "#f8f9fa",
+              "outline-variant": "#c3c6d1",
+              "inverse-on-surface": "#f0f1f2",
+              "on-secondary-fixed-variant": "#004f50"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+      .course-card-bg {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface custom-scrollbar antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 h-16 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 shadow-sm shadow-blue-900/5 no-line tonal-layering">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-100 hover:opacity-80 transition-opacity cursor-pointer">menu</span>
+<h1 class="text-blue-900 dark:text-blue-100 font-manrope font-extrabold tracking-tighter text-lg">Study Curator</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-100 hover:opacity-80 transition-opacity cursor-pointer">account_circle</span>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
+<!-- Hero Section / Editorial Header -->
+<section class="mb-10">
+<p class="font-label text-label-md text-on-surface-variant uppercase tracking-widest mb-1">Your Library</p>
+<h2 class="font-headline text-[2.25rem] font-extrabold leading-tight text-primary tracking-tight">Active Curations</h2>
+<div class="mt-4 h-1 w-12 bg-secondary rounded-full"></div>
+</section>
+<!-- Course List (Asymmetric Grid/List) -->
+<div class="flex flex-col gap-6">
+<!-- Course Card: Data Structures and Algorithms -->
+<div class="group relative flex flex-col p-6 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-primary-fixed text-on-primary-fixed-variant">DSA</span>
+<div class="flex items-center gap-2 px-3 py-1 bg-secondary-container/30 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-[11px] font-semibold text-on-secondary-container">Done</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface mb-2 leading-tight">Data Structures and Algorithms</h3>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Student avatar" data-alt="Circular portrait of a smiling student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLkeo02Ooy03vlP9VU4DUbZtE1uNg00j3VMbvMCdfNcOqHX-0feS41fyK_Im8RaPYNUaH3wzUVHGBk-geFVRichkP1JbxWTyI2WjQl_iu4MVxuAJhWRleewhiEIEUbbEwdSvzwhEHVSHAFnQHaSD2bUC0gCapqHVdbtx4K82jA1UJt8OrUzoBcLE77Cn3J2c5xqnHztBGkhg5zH8hdxUaDuG0-zwo8syq8pW0EN2KYSy1Zjp0YKrq-6z7Nhesw_SiwURdKKKo0UJr6"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">14 Lessons Completed</span>
+</div>
+</div>
+<!-- Course Card: Spanish 101 -->
+<div class="group relative flex flex-col p-6 rounded-xl bg-surface-container-low transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Language</span>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-outline animate-pulse"></span>
+<span class="text-[11px] font-semibold text-on-surface-variant">Processing</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface mb-2 leading-tight">Spanish 101</h3>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-secondary h-full w-[65%] rounded-full"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] font-bold text-secondary uppercase">Progressing</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">65%</span>
+</div>
+</div>
+<!-- Course Card: Digital Photography Basics (Error State) -->
+<div class="group relative flex flex-col p-6 rounded-xl bg-surface-container-lowest border border-error/10 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-secondary-fixed text-on-secondary-fixed-variant">Photography</span>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-error-container/50 rounded-full">
+<span class="material-symbols-outlined text-[14px] text-error font-bold">warning</span>
+<span class="text-[11px] font-bold text-on-error-container">Done with Errors</span>
+</div>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface mb-2 leading-tight">Digital Photography Basics</h3>
+<div class="mt-4 p-3 bg-error-container/20 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error">error</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-error-container">Sync Failed</p>
+<p class="text-[10px] text-on-error-container/80">3 lectures failed to process</p>
+</div>
+</div>
+<button class="text-[10px] font-bold text-error uppercase hover:underline">Retry</button>
+</div>
+</div>
+<!-- Section Divider - Editorial Style -->
+<div class="py-4 flex items-center gap-4">
+<span class="font-headline font-bold text-on-surface-variant whitespace-nowrap">Suggested for you</span>
+<div class="h-[1px] w-full bg-outline-variant/30"></div>
+</div>
+<!-- Bento Card Grid for suggestions -->
+<div class="grid grid-cols-2 gap-4">
+<div class="p-5 rounded-2xl bg-primary-container text-on-primary-container flex flex-col justify-between min-h-[160px] relative overflow-hidden">
+<div class="z-10">
+<span class="text-[9px] font-black uppercase tracking-widest opacity-70">New Course</span>
+<h4 class="font-headline font-extrabold text-lg mt-1">UX Psychology</h4>
+</div>
+<span class="material-symbols-outlined text-4xl self-end opacity-20 absolute -bottom-2 -right-2 transform rotate-12">psychology</span>
+<button class="z-10 self-start mt-4 px-3 py-1.5 bg-on-primary-container text-primary text-[10px] font-bold rounded-lg uppercase tracking-tight">Enroll</button>
+</div>
+<div class="p-5 rounded-2xl bg-secondary-fixed text-on-secondary-fixed-variant flex flex-col justify-between min-h-[160px] relative overflow-hidden">
+<div class="z-10">
+<span class="text-[9px] font-black uppercase tracking-widest opacity-70">Workshop</span>
+<h4 class="font-headline font-extrabold text-lg mt-1">Lightroom Pro</h4>
+</div>
+<span class="material-symbols-outlined text-4xl self-end opacity-20 absolute -bottom-2 -right-2 transform -rotate-12">photo_camera</span>
+<button class="z-10 self-start mt-4 px-3 py-1.5 bg-on-secondary-fixed-variant text-secondary-fixed text-[10px] font-bold rounded-lg uppercase tracking-tight">Join</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)] no-line tonal-shift-bg">
+<!-- Active Tab: Browse -->
+<a class="flex flex-col items-center justify-center bg-teal-100/50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-200 rounded-2xl px-5 py-2 transition-transform active:duration-150 scale-90" href="#">
+<span class="material-symbols-outlined" data-weight="fill">explore</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Browse</span>
+</a>
+<!-- Inactive Tab: Quiz -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors active:duration-150 scale-90" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Quiz</span>
+</a>
+<!-- Inactive Tab: Status -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors active:duration-150 scale-90" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Status</span>
+</a>
+</nav>
+<!-- FAB (Contextual for Home) -->
+<button class="fixed bottom-28 right-6 w-14 h-14 rounded-2xl bg-primary text-on-primary shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</body></html>

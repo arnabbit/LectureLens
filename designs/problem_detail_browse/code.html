@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-background": "#191c1d",
+              "surface-container-high": "#e7e8e9",
+              "on-primary-container": "#93bcfc",
+              "on-error-container": "#93000a",
+              "tertiary": "#522900",
+              "background": "#f8f9fa",
+              "secondary-container": "#93efee",
+              "tertiary-container": "#733c00",
+              "on-primary-fixed": "#001c3b",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "on-error": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary-container": "#f7a967",
+              "surface": "#f8f9fa",
+              "surface-container": "#edeeef",
+              "on-secondary-container": "#006e6e",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-highest": "#e1e3e4",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2e3132",
+              "surface-variant": "#e1e3e4",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "primary-fixed-dim": "#a6c8ff",
+              "on-surface-variant": "#424750",
+              "on-surface": "#191c1d",
+              "primary-container": "#1a4b84",
+              "on-secondary-fixed": "#002020",
+              "tertiary-fixed": "#ffdcc3",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#d5e3ff",
+              "secondary": "#006a6a",
+              "primary": "#003466",
+              "outline": "#737781",
+              "inverse-primary": "#a6c8ff",
+              "surface-tint": "#335f99",
+              "secondary-fixed-dim": "#79d5d5",
+              "on-primary-fixed-variant": "#144780",
+              "secondary-fixed": "#96f2f1",
+              "on-tertiary-fixed": "#2f1500",
+              "surface-bright": "#f8f9fa",
+              "outline-variant": "#c3c6d1",
+              "inverse-on-surface": "#f0f1f2",
+              "on-secondary-fixed-variant": "#004f50"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        background-color: #f8f9fa;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 h-16 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 shadow-sm shadow-blue-900/5">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity scale-95 active:duration-100 text-blue-900">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-manrope font-bold text-lg tracking-tight text-blue-900">3Sum - Array Manipulation</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-blue-900" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-4xl mx-auto space-y-8">
+<!-- Problem Statement Section -->
+<section class="relative">
+<div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
+<div class="bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-bold tracking-widest text-primary uppercase">Problem Statement</span>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<p class="font-headline font-semibold text-xl leading-relaxed text-on-surface tracking-tight">
+                    Given an integer array nums, return all the triplets <code class="bg-surface-container px-2 py-0.5 rounded text-primary-container font-mono text-sm">[nums[i], nums[j], nums[k]]</code> such that <code class="font-mono text-sm">i != j</code>, <code class="font-mono text-sm">i != k</code>, and <code class="font-mono text-sm">j != k</code>, and the sum of the elements equals zero.
+                </p>
+<div class="mt-6 flex flex-wrap gap-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">Medium</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-medium">Arrays</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-medium">Two Pointers</span>
+</div>
+</div>
+</section>
+<!-- Approaches Section -->
+<section class="space-y-4">
+<h2 class="font-headline font-extrabold text-2xl tracking-tighter text-primary mb-6">Approaches</h2>
+<!-- Optimized Approach (Active/Elevated) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border-l-4 border-secondary transition-all">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface">Optimized: Sorting &amp; Two Pointers</h3>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex gap-2 mb-4">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-wider">O(n²) Time</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">O(1) Space</span>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="expand_less">expand_less</span>
+</button>
+</div>
+<div class="text-body text-on-surface-variant leading-relaxed text-sm space-y-3">
+<p>Sort the input array first. Iterate through the array, and for each element, use two pointers (left and right) to find pairs that sum to the negative value of the current element.</p>
+<p>Key optimization: Skip duplicate elements during iteration and pointer movement to avoid duplicate triplets in the result set.</p>
+</div>
+</div>
+<!-- Iterative Approach -->
+<div class="bg-surface-container-low rounded-xl p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Iterative (Brute Force)</h3>
+<div class="flex gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-error/10 text-error text-[10px] font-bold uppercase tracking-wider">O(n³) Time</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">O(1) Space</span>
+</div>
+</div>
+<button class="text-outline">
+<span class="material-symbols-outlined" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Recursive Approach -->
+<div class="bg-surface-container-low rounded-xl p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Recursive Hashing</h3>
+<div class="flex gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-wider">O(n²) Time</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">O(n) Space</span>
+</div>
+</div>
+<button class="text-outline">
+<span class="material-symbols-outlined" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Key Insights -->
+<section class="bg-surface-container-highest/30 rounded-2xl p-8 mt-12">
+<h2 class="font-headline font-bold text-lg text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+                Critical Insights
+            </h2>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Sorting is the prerequisite for the Two Pointer technique here; it allows us to intelligently move pointers based on the sum's comparison to zero.</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Handling duplicates is the most error-prone part. Always use <code class="font-mono bg-white/50 px-1 rounded">while</code> loops to skip identical values.</p>
+</li>
+</ul>
+</section>
+<!-- Rephrase Button -->
+<div class="flex justify-center pt-8 pb-12">
+<button class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl shadow-lg shadow-primary/20 font-bold tracking-tight hover:opacity-90 transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="auto_fix_high">auto_fix_high</span>
+                Rephrase Explanation
+            </button>
+</div>
+</main>
+<!-- Bottom Sheet Simulation (Simplified overlay for context) -->
+<div class="fixed inset-0 bg-on-background/40 backdrop-blur-sm z-[60] flex items-end justify-center hidden">
+<div class="bg-white w-full max-w-lg rounded-t-[2.5rem] p-8 shadow-2xl animate-slide-up">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-8"></div>
+<h3 class="font-headline font-extrabold text-2xl text-primary mb-6">Rephrase Settings</h3>
+<div class="space-y-6">
+<div>
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3 block">Instructor Style</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-3 px-4 rounded-xl border-2 border-primary bg-primary/5 text-primary font-bold text-sm">Striver</button>
+<button class="py-3 px-4 rounded-xl border-2 border-outline-variant text-on-surface-variant font-medium text-sm">NeetCode</button>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3 block">Depth</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-3 px-4 rounded-xl border-2 border-outline-variant text-on-surface-variant font-medium text-sm">Concise</button>
+<button class="py-3 px-4 rounded-xl border-2 border-primary bg-primary/5 text-primary font-bold text-sm">Detailed</button>
+</div>
+</div>
+<button class="w-full py-4 bg-secondary text-white rounded-xl font-bold mt-4">Apply Transformation</button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md z-50 rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center bg-teal-100/50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-200 rounded-2xl px-5 py-2 scale-90 active:duration-150 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Browse</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors scale-90 active:duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Quiz</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:bg-surface-container-highest transition-colors scale-90 active:duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Status</span>
+</a>
+</nav>
+</body></html>
