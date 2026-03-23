@@ -2,20 +2,25 @@ import { M3 } from '@/constants/theme';
 import { api, Problem } from '@/services/api';
 import { gemini } from '@/services/gemini';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Modal,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 
-const REPHRASE_STYLES = ['MKBHD', 'Andrew Ng', 'Dostovetsky', 'Om Swami(Author and Monk)'];
-const REPHRASE_CONTEXTS = ['Concise with context', 'Detailed with context','Detailed like Author talking to the reader', 'TLDR mode', ];
+const STORAGE_KEY_STYLES = 'rephrase_styles';
+const STORAGE_KEY_CONTEXTS = 'rephrase_contexts';
+const DEFAULT_STYLES = ['Om Swami(Author and Monk)'];
+const DEFAULT_CONTEXTS = ['Concise with context', 'Detailed with context', 'TLDR mode', 'Detailed like Author talking to the reader'];
 
 export default function ProblemDetailScreen() {
   const router = useRouter();
@@ -26,11 +31,60 @@ export default function ProblemDetailScreen() {
 
   // Rephrase state
   const [showRephrase, setShowRephrase] = useState(false);
-  const [selectedStyle, setSelectedStyle] = useState('Striver');
-  const [selectedContext, setSelectedContext] = useState('Detailed');
+  const [selectedStyle, setSelectedStyle] = useState('');
+  const [selectedContext, setSelectedContext] = useState('');
   const [rephrasing, setRephrasing] = useState(false);
   const [rephrasedTexts, setRephrasedTexts] = useState<Record<number, string>>({});
   const [hasGeminiKey, setHasGeminiKey] = useState(false);
+  const [customStyles, setCustomStyles] = useState<string[]>(DEFAULT_STYLES);
+  const [customContexts, setCustomContexts] = useState<string[]>(DEFAULT_CONTEXTS);
+  const [newStyleText, setNewStyleText] = useState('');
+  const [newContextText, setNewContextText] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      const [styles, contexts] = await Promise.all([
+        AsyncStorage.getItem(STORAGE_KEY_STYLES),
+        AsyncStorage.getItem(STORAGE_KEY_CONTEXTS),
+      ]);
+      if (styles) setCustomStyles(JSON.parse(styles));
+      if (contexts) setCustomContexts(JSON.parse(contexts));
+    })();
+  }, []);
+
+  const saveStyles = async (styles: string[]) => {
+    setCustomStyles(styles);
+    await AsyncStorage.setItem(STORAGE_KEY_STYLES, JSON.stringify(styles));
+  };
+
+  const saveContexts = async (contexts: string[]) => {
+    setCustomContexts(contexts);
+    await AsyncStorage.setItem(STORAGE_KEY_CONTEXTS, JSON.stringify(contexts));
+  };
+
+  const addStyle = () => {
+    const val = newStyleText.trim();
+    if (!val || customStyles.includes(val)) return;
+    saveStyles([...customStyles, val]);
+    setNewStyleText('');
+  };
+
+  const removeStyle = (style: string) => {
+    saveStyles(customStyles.filter((s) => s !== style));
+    if (selectedStyle === style) setSelectedStyle('');
+  };
+
+  const addContext = () => {
+    const val = newContextText.trim();
+    if (!val || customContexts.includes(val)) return;
+    saveContexts([...customContexts, val]);
+    setNewContextText('');
+  };
+
+  const removeContext = (ctx: string) => {
+    saveContexts(customContexts.filter((c) => c !== ctx));
+    if (selectedContext === ctx) setSelectedContext('');
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -202,7 +256,7 @@ export default function ProblemDetailScreen() {
 
             <Text style={styles.sheetLabel}>INSTRUCTOR STYLE</Text>
             <View style={styles.sheetOptions}>
-              {REPHRASE_STYLES.map((style) => (
+              {customStyles.map((style) => (
                 <Pressable
                   key={style}
                   style={[
@@ -210,6 +264,12 @@ export default function ProblemDetailScreen() {
                     selectedStyle === style && styles.sheetOptionActive,
                   ]}
                   onPress={() => setSelectedStyle(style)}
+                  onLongPress={() =>
+                    Alert.alert('Remove Style', `Remove "${style}"?`, [
+                      { text: 'Cancel' },
+                      { text: 'Remove', style: 'destructive', onPress: () => removeStyle(style) },
+                    ])
+                  }
                 >
                   <Text style={[
                     styles.sheetOptionText,
@@ -218,10 +278,23 @@ export default function ProblemDetailScreen() {
                 </Pressable>
               ))}
             </View>
+            <View style={styles.addRow}>
+              <TextInput
+                style={styles.addInput}
+                placeholder="Add author/style…"
+                placeholderTextColor={M3.outline}
+                value={newStyleText}
+                onChangeText={setNewStyleText}
+                onSubmitEditing={addStyle}
+              />
+              <Pressable style={styles.addBtn} onPress={addStyle}>
+                <MaterialCommunityIcons name="plus" size={20} color={M3.onPrimary} />
+              </Pressable>
+            </View>
 
             <Text style={styles.sheetLabel}>DEPTH</Text>
             <View style={styles.sheetOptions}>
-              {REPHRASE_CONTEXTS.map((ctx) => (
+              {customContexts.map((ctx) => (
                 <Pressable
                   key={ctx}
                   style={[
@@ -229,6 +302,12 @@ export default function ProblemDetailScreen() {
                     selectedContext === ctx && styles.sheetOptionActive,
                   ]}
                   onPress={() => setSelectedContext(ctx)}
+                  onLongPress={() =>
+                    Alert.alert('Remove Depth', `Remove "${ctx}"?`, [
+                      { text: 'Cancel' },
+                      { text: 'Remove', style: 'destructive', onPress: () => removeContext(ctx) },
+                    ])
+                  }
                 >
                   <Text style={[
                     styles.sheetOptionText,
@@ -236,6 +315,19 @@ export default function ProblemDetailScreen() {
                   ]}>{ctx}</Text>
                 </Pressable>
               ))}
+            </View>
+            <View style={styles.addRow}>
+              <TextInput
+                style={styles.addInput}
+                placeholder="Add depth/context…"
+                placeholderTextColor={M3.outline}
+                value={newContextText}
+                onChangeText={setNewContextText}
+                onSubmitEditing={addContext}
+              />
+              <Pressable style={styles.addBtn} onPress={addContext}>
+                <MaterialCommunityIcons name="plus" size={20} color={M3.onPrimary} />
+              </Pressable>
             </View>
 
             <Pressable style={styles.applyBtn} onPress={handleRephrase}>
@@ -390,7 +482,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     marginBottom: 12,
   },
-  sheetOptions: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 24 },
+  sheetOptions: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 12 },
   sheetOption: {
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -404,6 +496,25 @@ const styles = StyleSheet.create({
   },
   sheetOptionText: { fontFamily: 'Inter_500Medium', fontSize: 14, color: M3.onSurfaceVariant },
   sheetOptionTextActive: { fontFamily: 'Inter_600SemiBold', color: M3.primary },
+  addRow: { flexDirection: 'row', gap: 8, marginBottom: 24 },
+  addInput: {
+    flex: 1,
+    borderWidth: 1.5,
+    borderColor: M3.outlineVariant,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    fontFamily: 'Inter_400Regular',
+    fontSize: 14,
+    color: M3.onSurface,
+  },
+  addBtn: {
+    backgroundColor: M3.primary,
+    borderRadius: 10,
+    width: 42,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   applyBtn: {
     backgroundColor: M3.secondary,
     paddingVertical: 16,
