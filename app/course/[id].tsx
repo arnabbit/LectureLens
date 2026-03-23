@@ -40,7 +40,7 @@ export default function SectionListScreen() {
 
   useFocusEffect(useCallback(() => { fetchSections(); }, [fetchSections]));
 
-  const sectionEntries = Object.entries(sections);
+  const sectionEntries = Object.entries(sections).sort(([a], [b]) => a.localeCompare(b));
 
   if (loading) {
     return <View style={styles.center}><ActivityIndicator size="large" color={M3.primary} /></View>;
