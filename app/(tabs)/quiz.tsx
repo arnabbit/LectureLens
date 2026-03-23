@@ -105,7 +105,7 @@ export default function QuizScreen() {
         {selectedCourse && Object.keys(sections).length > 0 && (
           <>
             <Text style={[styles.sectionLabel, { marginTop: 24 }]}>Select a Section</Text>
-            {Object.entries(sections).map(([name, problems]) => (
+            {Object.entries(sections).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([name, problems]) => (
               <Pressable
                 key={name}
                 style={[styles.pickerItem, selectedSection === name && styles.pickerItemActive]}
