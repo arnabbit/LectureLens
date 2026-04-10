@@ -14,6 +14,13 @@ import { M3 } from '@/constants/theme';
 import { api, Problem } from '@/services/api';
 import { useFocusEffect } from 'expo-router';
 
+const categoryDisplay: Record<string, { label: string; icon: string; color: string }> = {
+  dsa: { label: 'DSA', icon: 'code-braces', color: M3.primary },
+  language: { label: 'Language', icon: 'language-javascript', color: M3.tertiary },
+  photography: { label: 'Photography', icon: 'camera', color: M3.secondary },
+  generic: { label: 'Generic', icon: 'book-open-page-variant', color: M3.tertiary },
+};
+
 export default function SectionListScreen() {
   const router = useRouter();
   const { id, name, category } = useLocalSearchParams<{ id: string; name: string; category: string }>();
@@ -21,6 +28,8 @@ export default function SectionListScreen() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+
+  const display = categoryDisplay[category?.toLowerCase()] || categoryDisplay.generic;
 
   const fetchSections = useCallback(async () => {
     if (!name) return;
@@ -59,8 +68,10 @@ export default function SectionListScreen() {
         </Pressable>
       </View>
 
-      <View style={styles.categoryBadge}>
-        <Text style={styles.categoryText}>{category?.toUpperCase() ?? 'COURSE'}</Text>
+      {/* Category badge — adapts based on category */}
+      <View style={[styles.categoryBadge, { backgroundColor: `${display.color}1a` }]}>
+        <MaterialCommunityIcons name={display.icon as any} size={14} color={display.color} />
+        <Text style={[styles.categoryText, { color: display.color }]}>{display.label}</Text>
       </View>
       <Text style={styles.courseTitle}>{name}</Text>
 
@@ -68,6 +79,9 @@ export default function SectionListScreen() {
       <View style={styles.sectionsList}>
         {sectionEntries.map(([sectionName, problems], index) => {
           const isExpanded = expandedSection === sectionName;
+          // Use "Concepts" label for generic content, "Problems" for DSA
+          const isGeneric = category !== 'dsa';
+          const itemLabel = isGeneric ? 'Concepts' : 'Problems';
           return (
             <View key={sectionName} style={styles.sectionGroup}>
               {/* Section header */}
@@ -90,7 +104,7 @@ export default function SectionListScreen() {
                       styles.sectionName,
                       isExpanded && { color: M3.secondary },
                     ]}>{sectionName}</Text>
-                    <Text style={styles.sectionMeta}>{problems.length} Problems</Text>
+                    <Text style={styles.sectionMeta}>{problems.length} {itemLabel}</Text>
                   </View>
                 </View>
                 <MaterialCommunityIcons
@@ -100,23 +114,32 @@ export default function SectionListScreen() {
                 />
               </Pressable>
 
-              {/* Problem items */}
+              {/* Problem/Concept items */}
               {isExpanded && (
                 <View style={styles.problemList}>
-                  {problems.map((problem) => (
-                    <Pressable
-                      key={problem._id}
-                      style={styles.problemItem}
-                      onPress={() => router.push({ pathname: '/problem/[id]', params: { id: problem._id } })}
-                    >
-                      <Text style={styles.problemName} numberOfLines={2}>
-                        {problem.problemName || (problem.problemStatement.length > 80
+                  {problems.map((problem) => {
+                    // Render differently based on category
+                    const problemTitle = isGeneric
+                      ? (problem.concepts?.[0]?.name || (problem.problemStatement.length > 60
+                          ? problem.problemStatement.substring(0, 60) + '...'
+                          : problem.problemStatement))
+                      : (problem.problemName || (problem.problemStatement.length > 80
                           ? problem.problemStatement.substring(0, 80) + '...'
-                          : problem.problemStatement)}
-                      </Text>
-                      <MaterialCommunityIcons name="chevron-right" size={20} color={M3.outlineVariant} />
-                    </Pressable>
-                  ))}
+                          : problem.problemStatement));
+
+                    return (
+                      <Pressable
+                        key={problem._id}
+                        style={styles.problemItem}
+                        onPress={() => router.push({ pathname: '/problem/[id]', params: { id: problem._id } })}
+                      >
+                        <Text style={styles.problemName} numberOfLines={2}>
+                          {problemTitle}
+                        </Text>
+                        <MaterialCommunityIcons name="chevron-right" size={20} color={M3.outlineVariant} />
+                      </Pressable>
+                    );
+                  })}
                 </View>
               )}
             </View>
@@ -127,7 +150,12 @@ export default function SectionListScreen() {
       {sectionEntries.length === 0 && (
         <View style={styles.empty}>
           <MaterialCommunityIcons name="folder-open-outline" size={48} color={M3.outlineVariant} />
-          <Text style={styles.emptyText}>No problems found</Text>
+          <View style={styles.emptyContent}>
+            <Text style={styles.emptyText}>No {category !== 'dsa' ? 'concepts' : 'problems'} found</Text>
+            <Text style={styles.emptySub}>
+              {category !== 'dsa' ? 'Concepts will appear here after processing' : 'Problems will appear here after processing'}
+            </Text>
+          </View>
         </View>
       )}
     </ScrollView>
@@ -143,14 +171,16 @@ const styles = StyleSheet.create({
   backBtn: { padding: 4, alignSelf: 'flex-start' },
 
   categoryBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
     alignSelf: 'flex-start',
-    backgroundColor: M3.secondaryContainer,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 999,
     marginBottom: 12,
   },
-  categoryText: { fontFamily: 'Inter_600SemiBold', fontSize: 10, color: M3.onSecondaryContainer, letterSpacing: 1.5 },
+  categoryText: { fontFamily: 'Inter_600SemiBold', fontSize: 10, letterSpacing: 1.5 },
 
   courseTitle: {
     fontFamily: 'Manrope_800ExtraBold',
@@ -203,5 +233,8 @@ const styles = StyleSheet.create({
   problemName: { fontFamily: 'Inter_500Medium', fontSize: 14, color: M3.onSurface, flex: 1, marginRight: 8 },
 
   empty: { alignItems: 'center', paddingTop: 60, gap: 8 },
+  emptyContent: { alignItems: 'center' },
   emptyText: { fontFamily: 'Manrope_700Bold', fontSize: 16, color: M3.onSurfaceVariant },
+  emptySub: { fontFamily: 'Inter_400Regular', fontSize: 13, color: M3.outline, marginTop: 4 },
+});
 });

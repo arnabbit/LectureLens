@@ -15,9 +15,16 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 
 // Types
 
+export interface Concept {
+  name: string;
+  explanation: string;
+  keyTakeaways: string[];
+  importance?: 'high' | 'medium' | 'low';
+}
+
 export interface Approach {
   name: string;
-  complexity: { time: string; space: string };
+  complexity?: { time: string; space: string };
   optimisationScore?: number;
   explanation: string;
 }
@@ -34,6 +41,8 @@ export interface Problem {
   approaches: Approach[];
   keyInsights: string[];
   category: string;
+  // Generic content fields (populated for non-DSA categories)
+  concepts?: Concept[];
 }
 
 // Populated course ref from GET /lectures/:id

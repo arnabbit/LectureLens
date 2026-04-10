@@ -64,6 +64,7 @@ export const CategoryColors: Record<string, { bg: string; text: string; label: s
   dsa: { bg: M3.primaryFixed, text: M3.onPrimaryFixedVariant, label: 'DSA' },
   language: { bg: M3.tertiaryFixed, text: M3.onTertiaryFixedVariant, label: 'Language' },
   photography: { bg: M3.secondaryFixed, text: M3.onSecondaryFixedVariant, label: 'Photography' },
+  generic: { bg: `${M3.tertiary}1a`, text: M3.onTertiaryFixedVariant, label: 'Generic' },
   other: { bg: M3.surfaceContainerHighest, text: M3.onSurfaceVariant, label: 'Other' },
 };
 

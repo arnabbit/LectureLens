@@ -16,6 +16,9 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import DSACard from '@/components/DSACard';
+import GenericCard from '@/components/GenericCard';
+import CategoryCard from '@/components/CategoryCard';
 
 const STORAGE_KEY_STYLES = 'rephrase_styles';
 const STORAGE_KEY_CONTEXTS = 'rephrase_contexts';
@@ -118,6 +121,8 @@ export default function ProblemDetailScreen() {
     return <View style={styles.center}><ActivityIndicator size="large" color={M3.primary} /></View>;
   }
 
+  const isDSA = problem.category === 'dsa' && problem.approaches?.length > 0;
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -127,21 +132,47 @@ export default function ProblemDetailScreen() {
             <MaterialCommunityIcons name="arrow-left" size={24} color={M3.primary} />
           </Pressable>
           <Text style={styles.headerTitle} numberOfLines={1}>
-            {problem.problemStatement.substring(0, 30)}...
+            {problem.problemName || problem.problemStatement.substring(0, 30)}...
           </Text>
         </View>
 
-        {/* Problem Statement */}
+        {/* Category badge */}
+        <View style={[
+          styles.categoryBadge,
+          { backgroundColor: isDSA ? `${M3.primary}1a` : `${M3.tertiary}1a` },
+        ]}>
+          <MaterialCommunityIcons
+            name={isDSA ? 'code-braces' : 'book-open-page-variant'}
+            size={16}
+            color={isDSA ? M3.primary : M3.tertiary}
+          />
+          <Text style={[
+            styles.categoryText,
+            { color: isDSA ? M3.primary : M3.tertiary },
+          ]}>
+            {isDSA ? 'DSA' : problem.category?.toUpperCase() || 'GENERIC'}
+          </Text>
+
+        </View>
+
+        {/* Problem Statement card */}
         <View style={styles.statementCard}>
           <View style={styles.statementLabel}>
             <Text style={styles.statementLabelText}>PROBLEM STATEMENT</Text>
             <View style={styles.labelLine} />
           </View>
           <Text style={styles.statementText}>{problem.problemStatement}</Text>
-          {problem.category && (
+          {problem.concepts && (
+            <Text style={[styles.statementText, { marginTop: 8, fontFamily: 'Inter_400Regular' }]}>
+              {problem.concepts.map((c) => c.explanation).join('\n\n')}
+            </Text>
+          )}
+
+          {/* Show category badge for DSA content */
+          problem.problemName && (
             <View style={styles.tags}>
               <View style={styles.tag}>
-                <Text style={styles.tagText}>{problem.category.toUpperCase()}</Text>
+                <Text style={styles.tagText}>{problem.problemName}</Text>
               </View>
               {problem.sectionName && (
                 <View style={[styles.tag, { backgroundColor: M3.surfaceContainerHighest }]}>
@@ -152,69 +183,81 @@ export default function ProblemDetailScreen() {
           )}
         </View>
 
-        {/* Approaches */}
-        <Text style={styles.approachesTitle}>Approaches</Text>
-        {[...problem.approaches]
-          .sort((a, b) => (a.optimisationScore ?? 0) - (b.optimisationScore ?? 0))
-          .map((approach, index, sorted) => {
-          const isExpanded = expandedApproach === index;
-          const displayText = rephrasedTexts[index] ?? approach.explanation;
-          const isBest = index === sorted.length - 1;
-          return (
-            <Pressable
-              key={index}
-              style={[
-                styles.approachCard,
-                isExpanded && styles.approachCardExpanded,
-              ]}
-              onPress={() => setExpandedApproach(isExpanded ? -1 : index)}
-            >
-              <View style={styles.approachHeader}>
-                <View style={{ flex: 1 }}>
-                  <View style={styles.approachNameRow}>
-                    <Text style={styles.approachName}>{approach.name}</Text>
-                    {isBest && (
-                      <MaterialCommunityIcons name="star" size={14} color={M3.secondary} />
-                    )}
-                  </View>
-                  <View style={styles.complexityRow}>
-                    {approach.complexity?.time && (
-                      <View style={[styles.complexityBadge, { backgroundColor: `${M3.secondary}1a` }]}>
-                        <Text style={[styles.complexityText, { color: M3.secondary }]}>
-                          {approach.complexity.time} Time
-                        </Text>
+        {/* DSA: Show approaches */}
+        {isDSA && (
+          <>
+            <Text style={styles.approachesTitle}>Approaches</Text>
+            {[...problem.approaches!]
+              .sort((a, b) => (a.optimisationScore ?? 0) - (b.optimisationScore ?? 0))
+              .map((approach, index, sorted) => {
+              const isExpanded = expandedApproach === index;
+              const displayText = rephrasedTexts[index] ?? approach.explanation;
+              const isBest = index === sorted.length - 1;
+              return (
+                <Pressable
+                  key={index}
+                  style={[
+                    styles.approachCard,
+                    isExpanded && styles.approachCardExpanded,
+                  ]}
+                  onPress={() => setExpandedApproach(isExpanded ? -1 : index)}
+                >
+                  <View style={styles.approachHeader}>
+                    <View style={{ flex: 1 }}>
+                      <View style={styles.approachNameRow}>
+                        <Text style={styles.approachName}>{approach.name}</Text>
+                        {isBest && (
+                          <MaterialCommunityIcons name="star" size={14} color={M3.secondary} />
+                        )}
                       </View>
-                    )}
-                    {approach.complexity?.space && (
-                      <View style={[styles.complexityBadge, { backgroundColor: `${M3.primary}1a` }]}>
-                        <Text style={[styles.complexityText, { color: M3.primary }]}>
-                          {approach.complexity.space} Space
-                        </Text>
+                      <View style={styles.complexityRow}>
+                        {approach.complexity?.time && (
+                          <View style={[styles.complexityBadge, { backgroundColor: `${M3.secondary}1a` }]}>
+                            <Text style={[styles.complexityText, { color: M3.secondary }]}>
+                              {approach.complexity.time} Time
+                            </Text>
+                          </View>
+                        )}
+                        {approach.complexity?.space && (
+                          <View style={[styles.complexityBadge, { backgroundColor: `${M3.primary}1a` }]}>
+                            <Text style={[styles.complexityText, { color: M3.primary }]}>
+                              {approach.complexity.space} Space
+                            </Text>
+                          </View>
+                        )}
                       </View>
-                    )}
+                    </View>
+                    <MaterialCommunityIcons
+                      name={isExpanded ? 'chevron-up' : 'chevron-down'}
+                      size={22}
+                      color={M3.outline}
+                    />
                   </View>
-                </View>
-                <MaterialCommunityIcons
-                  name={isExpanded ? 'chevron-up' : 'chevron-down'}
-                  size={22}
-                  color={M3.outline}
-                />
-              </View>
 
-              {isExpanded && (
-                <View style={styles.approachBody}>
-                  {rephrasing ? (
-                    <ActivityIndicator color={M3.primary} style={{ paddingVertical: 20 }} />
-                  ) : (
-                    <Text style={styles.approachExplanation}>{displayText}</Text>
+                  {isExpanded && (
+                    <View style={styles.approachBody}>
+                      {rephrasing ? (
+                        <ActivityIndicator color={M3.primary} style={{ paddingVertical: 20 }} />
+                      ) : (
+                        <Text style={styles.approachExplanation}>{displayText}</Text>
+                      )}
+                    </View>
                   )}
-                </View>
-              )}
-            </Pressable>
-          );
-        })}
+                </Pressable>
+              );
+            })}
+          </>
+        )}
 
-        {/* Key Insights */}
+        {/* Generic: Show concepts */}
+        {problem.concepts && problem.concepts.length > 0 && (
+          <Text style={styles.approachesTitle}>Key Concepts</Text>
+        )}
+        {problem.concepts?.map((concept, index) => (
+          <GenericCard key={index} concept={concept} />
+        ))}
+
+        {/* Key Insights — DSA has these */}
         {problem.keyInsights?.length > 0 && (
           <View style={styles.insightsCard}>
             <View style={styles.insightsHeader}>
@@ -370,6 +413,18 @@ const styles = StyleSheet.create({
   header: { paddingTop: 56, marginBottom: 16, flexDirection: 'row', alignItems: 'center', gap: 12 },
   backBtn: { padding: 4 },
   headerTitle: { fontFamily: 'Manrope_700Bold', fontSize: 16, color: M3.primary, flex: 1 },
+
+  categoryBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    marginBottom: 16,
+  },
+  categoryText: { fontFamily: 'Inter_600SemiBold', fontSize: 11, letterSpacing: 1 },
 
   // Problem statement
   statementCard: {
