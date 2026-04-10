@@ -1,13 +1,7 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { M3 } from '@/constants/theme';
-
-interface Approach {
-  name: string;
-  complexity?: { time: string; space: string };
-  optimisationScore?: number;
-  explanation: string;
-}
+import { Approach } from '@/services/api';
 
 interface DSACardProps {
   problemName: string;

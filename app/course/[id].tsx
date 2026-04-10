@@ -237,4 +237,3 @@ const styles = StyleSheet.create({
   emptyText: { fontFamily: 'Manrope_700Bold', fontSize: 16, color: M3.onSurfaceVariant },
   emptySub: { fontFamily: 'Inter_400Regular', fontSize: 13, color: M3.outline, marginTop: 4 },
 });
-});

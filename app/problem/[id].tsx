@@ -16,9 +16,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import DSACard from '@/components/DSACard';
 import GenericCard from '@/components/GenericCard';
-import CategoryCard from '@/components/CategoryCard';
 
 const STORAGE_KEY_STYLES = 'rephrase_styles';
 const STORAGE_KEY_CONTEXTS = 'rephrase_contexts';
